@@ -1,0 +1,11 @@
+<html>
+    <body>
+        <h1>Global Microblog Feed </h1>
+        {% for post in posts %}
+            <div style="border: 1px solid gray; margin: 10px; padding: 10px;">
+                <p>{{post.content}}</p>
+                <small>Written by User : {{ post.user_id }}</small>
+            </div>
+        {%endfor%}
+    </body>
+</html>
