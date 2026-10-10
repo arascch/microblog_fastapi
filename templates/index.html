@@ -13,7 +13,12 @@
             <div style="border: 1px solid gray; margin: 10px; padding: 10px;">
                 <p>{{post.content}}</p>
                 <small>Written by User : {{ post.user_id }}</small>
+
+                <form action="/delete/{{post.id}}" method="post" style="display: inline;">
+                    <button type="submit" style="color: red;">Delete</button>
+                </form>
             </div>
         {%endfor%}
+
     </body>
 </html>

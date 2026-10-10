@@ -1,10 +1,9 @@
-from fastapi import FastAPI , Request,Form
+from fastapi import FastAPI , Request ,Form
+from fastapi.responses import RedirectResponse
 from sqlmodel import SQLModel, create_engine , Session,select
 from database import engine
 from models import User , Post
-from fastapi.templating import Jinja2Templates
-from fastapi.responses import RedirectResponse
-
+from fastapi.templating import Jinja2Templates 
 
 app = FastAPI()
 
@@ -24,9 +23,20 @@ def show_feed(request:Request):
     )
 
 @app.post("/create")
-def create_post(content: str = Form(...), user_id: int=Form(...)):
-    with Session(engine) as session:
-        new_post = Post(content=content , user_id=user_id)
+def create_post(content:str = Form(...) , user_id:int=Form(...)):
+    with Session(engine) as session:    
+        new_post = Post(content=content , user_id = user_id)
         session.add(new_post)
         session.commit()
     return RedirectResponse(url="/" , status_code=303)
+
+
+@app.post("/delete/{post_id}")
+def delete_post(post_id:int):
+    with Session(engine) as session:
+        post_to_delete = session.get(Post , post_id)
+        if post_to_delete:
+            session.delete(post_to_delete)
+            session.commit()
+
+        return RedirectResponse(url="/" , status_code = 303)
