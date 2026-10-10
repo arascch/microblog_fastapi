@@ -40,3 +40,14 @@ def delete_post(post_id:int):
             session.commit()
 
         return RedirectResponse(url="/" , status_code = 303)
+
+@app.post("/update/{post_id}")
+def update_post(post_id:int , new_content:str=Form(...)):
+    with Session(engine) as session:
+        post_to_edit = session.get(Post , post_id)
+
+        if post_to_edit:
+            post_to_edit.content = new_content
+            session.add(post_to_edit)
+            session.commit()
+    return RedirectResponse(url="/" , status_code=303)
