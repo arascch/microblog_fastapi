@@ -17,6 +17,10 @@
                 <form action="/delete/{{post.id}}" method="post" style="display: inline;">
                     <button type="submit" style="color: red;">Delete</button>
                 </form>
+                <form action="/update/{{post.id}}" method="post" style="display: inline;">
+                    <input type="text" name="new_content" placeholder="Edit this post">
+                    <button type="submit">update</button>
+                </form>
             </div>
         {%endfor%}
 
