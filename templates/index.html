@@ -1,58 +1,60 @@
-<html>
-<<<<<<< HEAD
-    <body>
-        <h1>Global Microblog Feed </h1>
-        <form action="/create" method="post" style="margin: 10px; padding: 10px; border: 1px solid black;">
-            <h3>write a new post</h3>
-            <input type="number" name="user_id" placeholder="Your User ID" required>
-            <br><br>
-            <input type="text" name="content" placeholder="whats on your mind?" required>
-            <br><br>
-            <button type="submit">Post</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Microblog</title>
+    <!-- 1. Load Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 min-h-screen py-8">
+
+    <!-- 2. Main Centered Container -->
+    <div class="max-w-xl mx-auto px-4">
+        <h1 class="text-3xl font-bold text-slate-800 mb-6">Global Microblog Feed 🐦</h1>
+
+        <!-- 3. New Post Form Card -->
+        <form action="/create" method="post" class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-8 space-y-4">
+            <h3 class="text-lg font-semibold text-slate-700">Write a new post</h3>
+            
+            <input type="number" name="user_id" placeholder="Your User ID" required
+                   class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            
+            <input type="text" name="content" placeholder="What's on your mind?" required
+                   class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            
+            <button type="submit" 
+                    class="w-full bg-blue-600 text-white font-medium py-2 rounded-lg hover:bg-blue-700 transition">
+                Post
+            </button>
         </form>
-        {% for post in posts %}
-            <div style="border: 1px solid gray; margin: 10px; padding: 10px;">
-                <p>{{post.content}}</p>
-                <small>Written by User : {{ post.user_id }}</small>
 
-                <form action="/delete/{{post.id}}" method="post" style="display: inline;">
-                    <button type="submit" style="color: red;">Delete</button>
-                </form>
-                <form action="/update/{{post.id}}" method="post" style="display: inline;">
-                    <input type="text" name="new_content" placeholder="Edit this post">
-                    <button type="submit">update</button>
-                </form>
-            </div>
-        {%endfor%}
+        <!-- 4. Feed Loop -->
+        <div class="space-y-4">
+            {% for post in posts %}
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+                    <p class="text-slate-800 text-lg mb-1">{{ post.content }}</p>
+                    <small class="text-slate-400 block mb-4">Written by User ID: {{ post.user_id }}</small>
 
-    </body>
-=======
-    <head>
-        <script src="https://cdn.tailwindcss.com"></script>
-    </head>
-        <body>
-            <div class="max-w-xl mx-auto px-4">    
-                <h1 class="text-3xl font-bold text-slate-800 mb-6">Global Microblog Feed </h1>
-                <form action="/create" method="post" class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-8 space-y-4">
-                    <h3 class="text-lg font-semibold text-slate-700">write a new post</h3>
-                    <input type="number" name="user_id" placeholder="Your User ID" required 
-                            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <br><br>
-                    <input type="text" name="content" placeholder="whats on your mind?" required
-                            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <br><br>
-                    <button type="submit" 
-                            class="w-full bg-blue-600 text-white font-medium py-2 rounded-lg hover:bg-blue-700 transition">Post</button>
-                </form>
-                <div space-y-4>    
-                    {% for post in posts %}
-                        <div style="border: 1px solid gray; margin: 10px; padding: 10px;">
-                            <p>{{post.content}}</p>
-                            <small>Written by User : {{ post.user_id }}</small>
-                        </div>
-                    {%endfor%}
+                    <!-- Action Bar: Update & Delete -->
+                    <div class="flex items-center gap-2 pt-3 border-t border-slate-100">
+                        <form action="/update/{{ post.id }}" method="post" class="flex-1 flex gap-2">
+                            <input type="text" name="new_content" placeholder="Edit this post..." required
+                                   class="flex-1 px-3 py-1 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-400">
+                            <button type="submit" class="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-lg hover:bg-slate-200">
+                                Update ✏️
+                            </button>
+                        </form>
+
+                        <form action="/delete/{{ post.id }}" method="post">
+                            <button type="submit" class="px-3 py-1 bg-red-50 text-red-600 text-sm rounded-lg hover:bg-red-100">
+                                Delete 🗑️
+                            </button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </body>
->>>>>>> 3fa2c8f (add tailwind for style)
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
 </html>
