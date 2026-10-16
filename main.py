@@ -51,3 +51,15 @@ def update_post(post_id:int , new_content:str=Form(...)):
             session.add(post_to_edit)
             session.commit()
     return RedirectResponse(url="/" , status_code=303)
+
+@app.post("/register")
+def register(username:str=Form(...) , password:str=Form(...)):
+    with Session(engine) as session:
+        new_user = User(username=username , password= password)
+        session.add(new_user)
+        session.commit()
+        session.refresh(new_user)
+
+        response = RedirectResponse(url="/" , status_code=303)
+        response.set_cookie(key="user.id" , value=str(new_user.id))
+        return response

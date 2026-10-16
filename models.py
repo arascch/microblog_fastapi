@@ -2,7 +2,9 @@ from sqlmodel import SQLModel , Field
 
 class User(SQLModel, table=True):
     id : int |None = Field(default=None , primary_key=True)
-    username : str
+    username : str = Field(unique=True)
+    password : str
+
 
 class Post(SQLModel , table=True):
     id: int |None = Field(default=None , primary_key=True)
